@@ -38,8 +38,19 @@ public class Ball : MonoBehaviour
 		}
 	}
 
+	void OnCollisionEnter2D(Collision2D coll)
+	{
+		Enemy en = coll.gameObject.GetComponent<Enemy>();
+
+		if(en)
+		{
+			en.Damage(1);
+		}
+	}
+
 	void OnTriggerEnter2D(Collider2D other)
 	{
+		Debug.Log("trigger enter");
 		this.rigidbody2D.drag = 1;
 	}
 

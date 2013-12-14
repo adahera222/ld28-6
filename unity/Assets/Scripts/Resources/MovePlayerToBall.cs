@@ -4,7 +4,7 @@ using System.Collections;
 public class MovePlayerToBall : MonoBehaviour 
 {
 	float stoppedTime = 0;
-	float neededStoppedTime = 2;
+	float neededStoppedTime = 1;
 
 	// Use this for initialization
 	void Start () 

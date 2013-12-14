@@ -12,6 +12,10 @@ public class PlayerController : MonoBehaviour
 
 	float hitAxis = 1;
 
+	bool clubSwitchDown = false;
+
+	float baseCameraOrtho = 5;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -51,13 +55,58 @@ public class PlayerController : MonoBehaviour
 		{
 			this.hitBall();
 		}
+
+		ClubBag bag = GameObject.Find("clubbag").GetComponent<ClubBag>();
+		axis = Input.GetAxis("Vertical");
+		if(axis != 0 && !clubSwitchDown)
+		{
+			clubSwitchDown = true;
+
+
+			if(axis > 0)
+			{
+				bag.PreviousClub();
+			}
+			else
+			{
+				bag.NextClub();
+			}
+		}
+		else if(axis == 0)
+		{
+			clubSwitchDown = false;
+		}
+
+		GameObject cam = GameObject.Find("Main Camera");
+		axis = Input.GetAxis("MouseDown");
+		if(axis != 0)
+		{
+			float mouseDragX = Input.GetAxis("Mouse X");
+			float mouseDragY = Input.GetAxis("Mouse Y");
+			Vector3 pos = cam.transform.position;
+			pos.x -= mouseDragX;
+			pos.y -= mouseDragY;
+			cam.transform.position = pos;
+		}
+
+		axis = Input.GetAxis("Mouse ScrollWheel");
+		if(axis != 0)
+		{
+			cam.GetComponent<Camera>().orthographicSize -= axis;
+		}
+
+		float ortho = cam.GetComponent<Camera>().orthographicSize;
+		bag.gameObject.transform.position = cam.transform.position + new Vector3(ortho * 1.2f, ortho * -.9f, -cam.transform.position.z);
+		float scale = ortho / baseCameraOrtho;
+		bag.gameObject.transform.localScale = new Vector3(scale, scale, 1);
 	}
 
 	void hitBall()
 	{
 		GameObject ball = GameObject.Find("mainball");
-		
-		Vector2 dir = new Vector2(1, 1).normalized;
+
+		ClubBag bag = GameObject.Find("clubbag").GetComponent<ClubBag>();
+		Vector2 dir = bag.CurrentClubVector();
 		dir.Scale(new Vector2(hitForce * hitAxis, hitForce));
 
 		ball.rigidbody2D.AddForce(dir);
