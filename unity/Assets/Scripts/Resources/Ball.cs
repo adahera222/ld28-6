@@ -50,7 +50,7 @@ public class Ball : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		Debug.Log("trigger enter");
+		//Debug.Log("trigger enter");
 		this.rigidbody2D.drag = 1;
 	}
 

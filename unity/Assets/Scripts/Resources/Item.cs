@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour 
-{
-	public float hp = 1;
+public class Item : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () 
@@ -14,20 +12,19 @@ public class Enemy : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if(hp <= 0)
-		{
-			Task tsk = this.GetComponent<Task>();
-			if(tsk && tsk.owner.activeForQuest)
-			{
-				tsk.Complete();
-			}
-
-			this.gameObject.SetActive(false);
-		}
+	
 	}
 
-	public void Damage(int dmg)
+	void OnTriggerEnter2D(Collider2D other)
 	{
-		hp -= dmg;
+		if(other.gameObject == GameObject.Find ("player"))
+		{
+			Task tsk = this.GetComponent<Task>();
+			if(tsk)
+			{
+				tsk.Complete ();
+				this.gameObject.SetActive(false);
+			}
+		}
 	}
 }
