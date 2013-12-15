@@ -18,10 +18,14 @@ public class PlayerController : MonoBehaviour
 
 	AudioClip swingAudio;
 
+	Animator playerAnimator;
+
 	// Use this for initialization
 	void Start () 
 	{
 		swingAudio = Resources.Load<AudioClip>("swing");
+
+		playerAnimator = this.GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
