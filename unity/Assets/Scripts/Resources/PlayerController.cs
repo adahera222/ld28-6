@@ -16,10 +16,12 @@ public class PlayerController : MonoBehaviour
 
 	float baseCameraOrtho = 5;
 
+	AudioClip swingAudio;
+
 	// Use this for initialization
 	void Start () 
 	{
-	
+		swingAudio = Resources.Load<AudioClip>("swing");
 	}
 	
 	// Update is called once per frame
@@ -113,6 +115,8 @@ public class PlayerController : MonoBehaviour
 
 		hitForce = 0;
 		timeHitStarted = 0;
+
+		audio.PlayOneShot(swingAudio);
 	}
 
 	void Flip()

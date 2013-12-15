@@ -46,6 +46,8 @@ public class Ball : MonoBehaviour
 		{
 			en.Damage(1);
 		}
+
+		audio.PlayOneShot(audio.clip);
 	}
 
 	void OnTriggerEnter2D(Collider2D other)

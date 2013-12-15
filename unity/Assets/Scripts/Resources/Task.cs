@@ -10,7 +10,7 @@ public class Task : MonoBehaviour
 	public bool completed = false;
 
 	// Use this for initialization
-	void Awake()
+	void Start()
 	{
 		this.gameObject.SetActive(false);
 	}

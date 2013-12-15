@@ -8,17 +8,16 @@ using System.Collections;
 public class Quest : MonoBehaviour
 {
 	public Checkpoint[] checkpoints;
+	bool questActive = false;
 
-	// Use this for initialization
-	void Awake()
-	{
-		checkpoints[0].Activate();
-	}
-	
 	// Update is called once per frame
 	void Update () 
 	{
-	
+		if(!questActive)
+		{
+			questActive = true;
+			checkpoints[0].Activate();
+		}
 	}
 
 	public void CompleteCheckpoint()

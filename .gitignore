@@ -1,5 +1,7 @@
 #From http://blog.i-evaluation.com/2013/09/12/unity3d-with-git-gitignore-for-bitbucket-and-github/ #
 
+twitch/
+
 # ---------------[ Unity generated ]------------------ #
 Temp/
 Obj/
