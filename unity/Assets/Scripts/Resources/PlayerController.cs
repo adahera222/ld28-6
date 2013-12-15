@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 	public float maxSpeed;
 	public float strikingPower;
 	public float swingDuration;
+
+	int state = 0;
 	
 	float hitForce = 0;
 	float timeHitStarted = 0;
@@ -44,22 +46,27 @@ public class PlayerController : MonoBehaviour
 
 		axis = Input.GetAxis("Fire1");
 		GameObject ball = GameObject.Find("mainball");
-		if(axis != 0 && ball.GetComponent<Ball>().canBeHit)
+		Ball ballComp = ball.GetComponent<Ball>();
+		if(axis != 0 && ballComp.canBeHit)
 		{
 			hitForce += Time.smoothDeltaTime * strikingPower;
 
 			if(timeHitStarted == 0)
 			{
 				timeHitStarted = Time.time;
+				state = 1;
+				playerAnimator.SetInteger("state", 1);
 			}
-			else if(Time.time - timeHitStarted > swingDuration)
+			else if(Time.time - timeHitStarted >= swingDuration)
 			{
-				this.hitBall();
+				state = 2;
+				playerAnimator.SetInteger("state", 2);
 			}
 		}
 		else if(hitForce > 0)
 		{
-			this.hitBall();
+			state = 2;
+			playerAnimator.SetInteger("state", 2);
 		}
 
 		ClubBag bag = GameObject.Find("clubbag").GetComponent<ClubBag>();
@@ -85,7 +92,7 @@ public class PlayerController : MonoBehaviour
 
 		GameObject cam = GameObject.Find("Main Camera");
 		axis = Input.GetAxis("MouseDown");
-		if(axis != 0)
+		if(axis != 0 && ballComp.canBeHit)
 		{
 			float mouseDragX = Input.GetAxis("Mouse X");
 			float mouseDragY = Input.GetAxis("Mouse Y");
@@ -96,7 +103,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		axis = Input.GetAxis("Mouse ScrollWheel");
-		if(axis != 0)
+		if(axis != 0 && ballComp.canBeHit)
 		{
 			cam.GetComponent<Camera>().orthographicSize -= axis;
 		}
@@ -117,9 +124,6 @@ public class PlayerController : MonoBehaviour
 
 		ball.rigidbody2D.AddForce(dir);
 
-		hitForce = 0;
-		timeHitStarted = 0;
-
 		audio.PlayOneShot(swingAudio);
 	}
 
@@ -129,5 +133,13 @@ public class PlayerController : MonoBehaviour
 		Vector3 scale = this.transform.localScale;
 		scale.x *= -1;
 		this.transform.localScale = scale;
+	}
+
+	void setIdleState()
+	{
+		hitForce = 0;
+		timeHitStarted = 0;
+		state = 0;
+		playerAnimator.SetInteger("state", 0);
 	}
 }

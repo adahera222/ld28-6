@@ -18,7 +18,7 @@ public class MovePlayerToBall : MonoBehaviour
 		GameObject player = GameObject.Find("player");
 		float dist = Vector2.Distance(this.transform.position, player.transform.position);
 		float speed = this.rigidbody2D.velocity.magnitude;
-		if(speed < .01 && dist  > .2)
+		if(speed < .01 && dist  > .22)
 		{
 			if(stoppedTime == 0)
 			{
@@ -27,7 +27,7 @@ public class MovePlayerToBall : MonoBehaviour
 
 			if(Time.time - stoppedTime >= neededStoppedTime)
 			{
-				player.transform.position = this.transform.position + new Vector3(0, .18f, 0);
+				player.transform.position = this.transform.position + new Vector3(-.05f, .18f, 0);
 				this.GetComponent<Ball>().canBeHit = true;
 				stoppedTime = 0;
 			}

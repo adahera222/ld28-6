@@ -12,8 +12,10 @@ public class ClubBag : MonoBehaviour
 {
 	ClubTypes currentClub = ClubTypes.ClubTypeDriver;
 	Vector2[] clubVectors;
-	string clubSpriteBaseName = "testclubs";
-	Sprite currentClubSprite;
+	string clubSpriteUIBaseName = "testclubs";
+	string clubSpriteBaseName = "clubs";
+
+	Sprite clubSprite;
 
 	// Use this for initialization
 	void Start () 
@@ -40,8 +42,11 @@ public class ClubBag : MonoBehaviour
 
 	void UpdateUI()
 	{
-		Object[] texs = Resources.LoadAll<Sprite>(clubSpriteBaseName);
+		Object[] texs = Resources.LoadAll<Sprite>(clubSpriteUIBaseName);
 		this.GetComponent<SpriteRenderer>().sprite = (Sprite)texs[(int)currentClub];
+
+		texs = Resources.LoadAll<Sprite>(clubSpriteBaseName);
+		GameObject.Find("club").GetComponent<SpriteRenderer>().sprite = (Sprite)texs[(int)currentClub];
 	}
 
 	public void NextClub()
@@ -69,5 +74,10 @@ public class ClubBag : MonoBehaviour
 	public Vector2 CurrentClubVector()
 	{
 		return clubVectors[(int)currentClub];
+	}
+
+	public Sprite CurrentClubSprite()
+	{
+		return null;
 	}
 }

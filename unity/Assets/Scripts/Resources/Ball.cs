@@ -29,12 +29,24 @@ public class Ball : MonoBehaviour
 				this.rigidbody2D.Sleep();
 
 				sleepTime = 0;
+				canBeHit = true;
 			}
 		}
 		else
 		{
 			sleepTime = 0;
 			canBeHit = false;
+		}
+
+		if(!canBeHit)
+		{
+			GameObject cam = GameObject.Find("Main Camera");
+			Vector2 path = new Vector2(this.transform.position.x - cam.transform.position.x, this.transform.position.y - cam.transform.position.y);
+			path *= Time.smoothDeltaTime;
+			Vector3 camPos = cam.transform.position;
+			camPos.x += path.x;
+			camPos.y += path.y;
+			cam.transform.position = camPos;
 		}
 	}
 
