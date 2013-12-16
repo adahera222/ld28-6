@@ -216,6 +216,14 @@ public class PlayerController : MonoBehaviour
 		playerAnimator.SetInteger("state", 101);
 	}
 
+	void OnGUI()
+	{
+		GUI.Label (new Rect(10, 10, 100, 20), "Press H for Help");
+
+		string clubName = GameObject.Find("clubbag").GetComponent<ClubBag>().CurrentClubName();
+		GUI.Label (new Rect(867, 500, 100, 20), clubName);
+	}
+
 	public void Damage(int dmg)
 	{
 		hp -= dmg;

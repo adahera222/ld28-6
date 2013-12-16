@@ -12,6 +12,7 @@ public class ClubBag : MonoBehaviour
 {
 	ClubTypes currentClub = ClubTypes.ClubTypeDriver;
 	Vector2[] clubVectors;
+	string[] clubNames;
 	string clubSpriteUIBaseName = "clubs";
 	string clubSpriteBaseName = "clubs";
 
@@ -32,6 +33,10 @@ public class ClubBag : MonoBehaviour
 		vec = Quaternion.Euler(0, 0, -70) * vec;
 
 		clubVectors[(int)ClubTypes.ClubTypeWedge] = new Vector2(vec.x, vec.y).normalized;
+
+		clubNames = new string[(int)ClubTypes.ClubTypeMax];
+		clubNames[(int)ClubTypes.ClubTypeDriver] = "Power Staff";
+		clubNames[(int)ClubTypes.ClubTypeWedge] = "Clever Staff";
 	}
 	
 	// Update is called once per frame
@@ -79,5 +84,10 @@ public class ClubBag : MonoBehaviour
 	public Sprite CurrentClubSprite()
 	{
 		return null;
+	}
+
+	public string CurrentClubName()
+	{
+		return clubNames[(int)currentClub];
 	}
 }

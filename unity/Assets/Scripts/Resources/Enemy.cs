@@ -17,10 +17,12 @@ public class Enemy : MonoBehaviour
 		if(hp <= 0)
 		{
 			Task tsk = this.GetComponent<Task>();
-			if(tsk && tsk.owner && tsk.owner.activeForQuest)
+			if(tsk && tsk.taskOwner && tsk.taskOwner.activeForQuest)
 			{
 				tsk.Complete();
 			}
+
+			GameObject.Find("mainball").audio.PlayOneShot(this.audio.clip);
 
 			this.gameObject.SetActive(false);
 		}

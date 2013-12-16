@@ -5,14 +5,14 @@ public class Task : MonoBehaviour
 {
 	public string description;
 	public GameObject target;
-	public Objective owner;
+	public Objective taskOwner;
 
 	public bool completed = false;
 
 	// Use this for initialization
 	void Start()
 	{
-		//this.gameObject.SetActive(false);
+		this.gameObject.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -29,6 +29,6 @@ public class Task : MonoBehaviour
 	public void Complete()
 	{
 		completed = true;
-		owner.CompleteTask();
+		taskOwner.CompleteTask();
 	}
 }

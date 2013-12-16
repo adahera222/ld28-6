@@ -17,11 +17,13 @@ public class Item : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if(other.gameObject == GameObject.Find ("player"))
+		GameObject player = GameObject.Find ("player");
+		if(other.gameObject == player)
 		{
 			Task tsk = this.GetComponent<Task>();
 			if(tsk)
 			{
+				player.audio.PlayOneShot(this.audio.clip, this.audio.volume);
 				tsk.Complete ();
 				this.gameObject.SetActive(false);
 			}

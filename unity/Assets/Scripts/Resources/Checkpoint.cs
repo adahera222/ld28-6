@@ -4,7 +4,7 @@ using System.Collections;
 public class Checkpoint : MonoBehaviour 
 {
 	public Objective[] objectives;
-	public Quest owner;
+	public Quest checkpointOwner;
 	public bool completed = false;
 	public bool activeForQuest = false;
 
@@ -37,6 +37,6 @@ public class Checkpoint : MonoBehaviour
 		}
 
 		completed = true;
-		owner.CompleteCheckpoint();
+		checkpointOwner.CompleteCheckpoint();
 	}
 }
