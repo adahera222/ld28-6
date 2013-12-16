@@ -1,0 +1,126 @@
+fileFormatVersion: 2
+guid: acf08a3041ff7cb49b67802ed7404995
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: ingamewords_0
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 423
+        width: 76
+        height: 62
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ingamewords_1
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 456
+        width: 139
+        height: 46
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ingamewords_2
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 381
+        width: 477
+        height: 37
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ingamewords_3
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 325
+        width: 228
+        height: 49
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ingamewords_4
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 280
+        width: 405
+        height: 37
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ingamewords_5
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 232
+        width: 410
+        height: 40
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ingamewords_6
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 181
+        width: 446
+        height: 41
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ingamewords_7
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 130
+        width: 390
+        height: 33
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ingamewords_8
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 99
+        width: 265
+        height: 26
+      alignment: 0
+      pivot: {x: .5, y: .5}
+  spritePackingTag: 
+  userData: 

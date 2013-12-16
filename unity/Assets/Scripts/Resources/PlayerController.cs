@@ -149,6 +149,16 @@ public class PlayerController : MonoBehaviour
 		}*/
 
 		//ui
+		if(Input.GetKeyDown (KeyCode.H))
+		{
+			GameObject help = GameObject.Find ("help");
+			SpriteRenderer ren = help.GetComponent<SpriteRenderer>();
+
+			ren.enabled = !ren.enabled;
+
+			help.transform.position = this.transform.position + new Vector3(0, 2.1f, 0);
+		}
+
 		bag.gameObject.transform.position = cam.transform.position + new Vector3(ortho * 1.2f, ortho * -.9f, -cam.transform.position.z);
 		float scale = ortho / baseCameraOrtho;
 		bag.gameObject.transform.localScale = new Vector3(scale, scale, 1);
