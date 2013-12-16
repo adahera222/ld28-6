@@ -12,7 +12,7 @@ public class ClubBag : MonoBehaviour
 {
 	ClubTypes currentClub = ClubTypes.ClubTypeDriver;
 	Vector2[] clubVectors;
-	string clubSpriteUIBaseName = "testclubs";
+	string clubSpriteUIBaseName = "clubs";
 	string clubSpriteBaseName = "clubs";
 
 	Sprite clubSprite;

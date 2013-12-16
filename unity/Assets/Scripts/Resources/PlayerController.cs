@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
 	bool clubSwitchDown = false;
 
-	float baseCameraOrtho = 5;
+	float baseCameraOrtho;
 
 	AudioClip swingAudio;
 
@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
 		swingAudio = Resources.Load<AudioClip>("swing");
 
 		playerAnimator = this.GetComponent<Animator>();
+
+		baseCameraOrtho = GameObject.Find("Main Camera").GetComponent<Camera>().orthographicSize;
 	}
 	
 	// Update is called once per frame
@@ -109,25 +111,44 @@ public class PlayerController : MonoBehaviour
 
 		//camera
 		GameObject cam = GameObject.Find("Main Camera");
+		float ortho = cam.GetComponent<Camera>().orthographicSize;
 		axis = Input.GetAxis("MouseDown");
 		if(axis != 0 && ballComp.canBeHit)
 		{
 			float mouseDragX = Input.GetAxis("Mouse X");
 			float mouseDragY = Input.GetAxis("Mouse Y");
-			Vector3 pos = cam.transform.position;
-			pos.x -= mouseDragX;
-			pos.y -= mouseDragY;
-			cam.transform.position = pos;
+			Vector3 camPos = cam.transform.position;
+			camPos.x -= mouseDragX;
+			camPos.y -= mouseDragY;
+
+			if(camPos.x < 8.18)
+			{
+				camPos.x = 8.18f;
+			}
+			if(camPos.x > 21.269)
+			{
+				camPos.x = 21.269f;
+			}
+			
+			if(camPos.y < 5.66)
+			{
+				camPos.y = 5.66f;
+			}
+			if(camPos.y > 12.63)
+			{
+				camPos.y = 12.63f;
+			}
+
+			cam.transform.position = camPos;
 		}
 
-		axis = Input.GetAxis("Mouse ScrollWheel");
+		/*axis = Input.GetAxis("Mouse ScrollWheel");
 		if(axis != 0 && ballComp.canBeHit)
 		{
 			cam.GetComponent<Camera>().orthographicSize -= axis;
-		}
+		}*/
 
 		//ui
-		float ortho = cam.GetComponent<Camera>().orthographicSize;
 		bag.gameObject.transform.position = cam.transform.position + new Vector3(ortho * 1.2f, ortho * -.9f, -cam.transform.position.z);
 		float scale = ortho / baseCameraOrtho;
 		bag.gameObject.transform.localScale = new Vector3(scale, scale, 1);

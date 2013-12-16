@@ -4,6 +4,10 @@ using System.Collections;
 public class Ball : MonoBehaviour
 {
 	public bool canBeHit;
+	public bool canBounce = true;
+
+	float bounceDelay = .5f;
+	float bounceTime = 0;
 
 	float sleepTime = 0;
 	float neededSleepTime = .33f;
@@ -16,6 +20,17 @@ public class Ball : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		if(!this.canBounce)
+		{
+			this.bounceTime += Time.deltaTime;
+
+			if(this.bounceTime >= this.bounceDelay)
+			{
+				this.bounceTime = 0;
+				this.canBounce = true;
+			}
+		}
+
 		if(this.rigidbody2D.velocity.magnitude < .05)
 		{
 			if(sleepTime == 0)
@@ -47,6 +62,25 @@ public class Ball : MonoBehaviour
 			Vector3 camPos = cam.transform.position;
 			camPos.x += path.x;
 			camPos.y += path.y;
+
+			if(camPos.x < 8.18)
+			{
+				camPos.x = 8.18f;
+			}
+			if(camPos.x > 21.269)
+			{
+				camPos.x = 21.269f;
+			}
+			
+			if(camPos.y < 5.66)
+			{
+				camPos.y = 5.66f;
+			}
+			if(camPos.y > 12.63)
+			{
+				camPos.y = 12.63f;
+			}
+
 			cam.transform.position = camPos;
 		}
 	}
