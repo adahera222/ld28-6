@@ -18,7 +18,7 @@ public class MovePlayerToBall : MonoBehaviour
 		GameObject player = GameObject.Find("player");
 		float dist = Vector2.Distance(this.transform.position, player.transform.position);
 		float speed = this.rigidbody2D.velocity.magnitude;
-		if(speed < .01 && dist  > .22)
+		if(speed < .01 && dist  > .22  && !player.GetComponent<PlayerController>().isDead())
 		{
 			if(stoppedTime == 0)
 			{

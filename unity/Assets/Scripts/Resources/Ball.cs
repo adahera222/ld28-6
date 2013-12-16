@@ -42,7 +42,8 @@ public class Ball : MonoBehaviour
 		{
 			GameObject cam = GameObject.Find("Main Camera");
 			Vector2 path = new Vector2(this.transform.position.x - cam.transform.position.x, this.transform.position.y - cam.transform.position.y);
-			path *= Time.smoothDeltaTime;
+			float speedMod = this.gameObject.rigidbody2D.velocity.magnitude * .15f;
+			path *= Time.smoothDeltaTime * ((speedMod > 1) ? speedMod : 1);
 			Vector3 camPos = cam.transform.position;
 			camPos.x += path.x;
 			camPos.y += path.y;
@@ -65,12 +66,15 @@ public class Ball : MonoBehaviour
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		//Debug.Log("trigger enter");
-		this.rigidbody2D.drag = 1;
+		if(other.tag == "Ground")
+		{
+			this.rigidbody2D.drag = 1;
+		}
 	}
 
 	void OnTriggerStay2D(Collider2D other)
 	{
-		if(this.rigidbody2D.velocity.magnitude < .25f)
+		if(this.rigidbody2D.velocity.magnitude < .25f && other.tag == "Ground")
 		{
 			this.rigidbody2D.velocity *= .75f;
 		}
@@ -78,6 +82,9 @@ public class Ball : MonoBehaviour
 
 	void OnTriggerExit2D(Collider2D other)
 	{
-		this.rigidbody2D.drag = .1f;
+		if(other.tag == "Ground")
+		{
+			this.rigidbody2D.drag = .1f;
+		}
 	}
 }

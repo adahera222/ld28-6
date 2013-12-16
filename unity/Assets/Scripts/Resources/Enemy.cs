@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
 		if(hp <= 0)
 		{
 			Task tsk = this.GetComponent<Task>();
-			if(tsk && tsk.owner.activeForQuest)
+			if(tsk && tsk.owner && tsk.owner.activeForQuest)
 			{
 				tsk.Complete();
 			}

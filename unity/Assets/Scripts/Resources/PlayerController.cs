@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 	public float maxSpeed;
 	public float strikingPower;
 	public float swingDuration;
+	public float hp = 1;
 
 	int state = 0;
 	
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
 	Animator playerAnimator;
 
+	bool hasTeleport = true;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -33,7 +36,12 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		//float force = maxSpeed * this.rigidbody2D.mass * this.rigidbody2D.drag * Time.smoothDeltaTime;
+		if(hp <= 0 && state < 100)
+		{
+			this.Die ();
+		}
+
+		//movement
 		float axis = Input.GetAxis("Horizontal");
 		if(axis < 0 && hitAxis > 0)
 		{
@@ -44,6 +52,7 @@ public class PlayerController : MonoBehaviour
 			this.Flip();
 		}
 
+		//hit ball
 		axis = Input.GetAxis("Fire1");
 		GameObject ball = GameObject.Find("mainball");
 		Ball ballComp = ball.GetComponent<Ball>();
@@ -69,6 +78,7 @@ public class PlayerController : MonoBehaviour
 			playerAnimator.SetInteger("state", 2);
 		}
 
+		//clubs
 		ClubBag bag = GameObject.Find("clubbag").GetComponent<ClubBag>();
 		axis = Input.GetAxis("Vertical");
 		if(axis != 0 && !clubSwitchDown)
@@ -90,6 +100,14 @@ public class PlayerController : MonoBehaviour
 			clubSwitchDown = false;
 		}
 
+		//reload level / confirm
+		axis = Input.GetAxis("Confirm");
+		if(axis != 0)
+		{
+			Application.LoadLevel(Application.loadedLevel);
+		}
+
+		//camera
 		GameObject cam = GameObject.Find("Main Camera");
 		axis = Input.GetAxis("MouseDown");
 		if(axis != 0 && ballComp.canBeHit)
@@ -108,10 +126,24 @@ public class PlayerController : MonoBehaviour
 			cam.GetComponent<Camera>().orthographicSize -= axis;
 		}
 
+		//ui
 		float ortho = cam.GetComponent<Camera>().orthographicSize;
 		bag.gameObject.transform.position = cam.transform.position + new Vector3(ortho * 1.2f, ortho * -.9f, -cam.transform.position.z);
 		float scale = ortho / baseCameraOrtho;
 		bag.gameObject.transform.localScale = new Vector3(scale, scale, 1);
+
+		//cheat move
+		if(Input.GetMouseButtonDown(1))
+		{
+			Vector3 worldPos = cam.camera.ScreenToWorldPoint(Input.mousePosition);
+			Vector3 pos = this.gameObject.transform.position;
+			pos.x = worldPos.x;
+			pos.y = worldPos.y;
+			this.gameObject.transform.position = pos;
+
+			ball.gameObject.transform.position = this.gameObject.transform.position;
+			ball.gameObject.rigidbody2D.velocity = new Vector3(0, 0, 0);
+		}
 	}
 
 	void hitBall()
@@ -124,7 +156,8 @@ public class PlayerController : MonoBehaviour
 
 		ball.rigidbody2D.AddForce(dir);
 
-		audio.PlayOneShot(swingAudio);
+		this.PlaySwing();
+		ball.audio.PlayOneShot(ball.audio.clip);
 	}
 
 	void Flip()
@@ -141,5 +174,34 @@ public class PlayerController : MonoBehaviour
 		timeHitStarted = 0;
 		state = 0;
 		playerAnimator.SetInteger("state", 0);
+	}
+
+	void PlaySwing()
+	{
+		audio.PlayOneShot(swingAudio);
+	}
+
+	void Die()
+	{
+		this.gameObject.layer = 31;
+
+		state = 100;
+		playerAnimator.SetInteger("state", 100);
+	}
+	
+	void Dying()
+	{
+		state = 101;
+		playerAnimator.SetInteger("state", 101);
+	}
+
+	public void Damage(int dmg)
+	{
+		hp -= dmg;
+	}
+
+	public bool isDead()
+	{
+		return (state >= 100);
 	}
 }
