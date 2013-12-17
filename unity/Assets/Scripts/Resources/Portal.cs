@@ -33,6 +33,8 @@ public class Portal : MonoBehaviour
 			{
 				player.audio.PlayOneShot(this.audio.clip, this.audio.volume);
 				hit = true;
+
+				GameObject.Find ("portalhelper").GetComponent<Task>().Complete ();
 			}
 		}
 	}

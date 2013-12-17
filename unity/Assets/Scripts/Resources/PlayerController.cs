@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
 	Animator playerAnimator;
 
-	bool hasTeleport = true;
+	//bool hasTeleport = true;
 
 	// Use this for initialization
 	void Start () 
@@ -218,6 +218,12 @@ public class PlayerController : MonoBehaviour
 
 		state = 100;
 		playerAnimator.SetInteger("state", 100);
+
+		GameObject qf = GameObject.Find ("questfailedhelper");
+		qf.transform.position = this.transform.position + new Vector3(0, 1, 0);
+
+		GameObject.Find ("questfailed").GetComponent<SpriteRenderer>().enabled = true;
+		GameObject.Find ("restartwords").GetComponent<SpriteRenderer>().enabled = true;
 	}
 	
 	void Dying()
@@ -231,7 +237,12 @@ public class PlayerController : MonoBehaviour
 		GUI.Label (new Rect(10, 10, 100, 20), "Press H for Help");
 
 		string clubName = GameObject.Find("clubbag").GetComponent<ClubBag>().CurrentClubName();
-		GUI.Label (new Rect(867, 500, 100, 20), clubName);
+		GUI.Label (new Rect(Screen.width - 110, Screen.height - 50, 100, 20), clubName);
+
+		if(GUI.Button (new Rect(Screen.width - 150, 30, 140, 30), "Greenlight on Steam!"))
+		{
+			Application.OpenURL("http://steamcommunity.com/sharedfiles/filedetails/?id=204635252");
+		}
 	}
 
 	public void Damage(int dmg)

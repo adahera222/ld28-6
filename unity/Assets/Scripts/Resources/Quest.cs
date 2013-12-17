@@ -34,5 +34,9 @@ public class Quest : MonoBehaviour
 				return;
 			}
 		}
+
+		GameObject.Find("questcomplete").GetComponent<SpriteRenderer>().enabled = true;
+		GameObject.Find("portalwords").GetComponent<SpriteRenderer>().enabled = false;
+		GameObject.Find("portalcursor").GetComponent<SpriteRenderer>().enabled = false;
 	}
 }
